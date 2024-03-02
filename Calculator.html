@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(168, 168, 255);
+            display: grid;
+            place-items: center;
+        }
+
+        .cal-con {
+            border: 2px solid black;
+            width: 60vw;
+            height:auto;
+            padding: 1.5rem;
+            background-color: aqua;
+            display: grid;
+            place-items: center;
+            
+            & .display {
+                width: 100%;
+                height: 20vw;
+                display: flex;
+                justify-content: end;
+                font-size: 2.2rem;
+                background-color: rgb(255, 244, 232);
+
+                & input {
+                    display: flex;
+                    width: 100%;
+                    font-size: 3rem;
+                    text-align: end;
+                    padding: 1rem;
+                }
+            }
+
+            & .cal-row {
+                width: 100%;
+             
+                background-color: aqua;
+                display: grid;
+                grid-template-columns: repeat(4, minmax(1rem, 1fr));
+
+                & button {
+                    padding: .7rem;
+                    font-size: 1.5rem;
+                }
+
+                & .equalto {
+                    background-color: aliceblue;
+                    border: none;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cal-con">
+        <div class="display dis-row">
+            <input type="text" value="0" />
+        </div>
+        <div class="first-row cal-row">
+            <button class="AC">AC</button>
+            <button class="perc">%</button>
+            <button class="cross">DEL</button>
+            <button class="sub">-</button>
+         
+        </div>
+        <div class="second-row cal-row">
+            <button class="seven">7</button>
+            <button class="eight">8</button>
+            <button class="nine">9</button>
+            <button class="mul">*</button>
+        </div>
+        <div class="third-row cal-row">
+            <button class="four">4</button>
+            <button class="five">5</button>
+            <button class="six">6</button>
+            <button class="modu">/</button>
+        </div>
+        <div class="four-row cal-row">
+            <button class="one">1</button>
+            <button class="two">2</button>
+            <button class="third">3</button>
+            <button class="plus">+</button>
+        </div>
+        <div class="fifth-row cal-row">
+            <button class="dblzero">00</button>
+            <button class="sglzero">0</button>
+            <button class="point">.</button>
+            <button class="equalto">=</button>
+        </div>
+    </div>
+    <script>
+        let string=""
+        let disp = document.querySelector('.display input');
+        let btns = document.querySelectorAll('button');//The error "Uncaught TypeError: btns.forEach is not a function" suggests that btns might not be an array. getElementsByTagName returns an HTMLCollection, which is similar to an array but does not have all the array methods.
+        console.log(disp.value);
+        console.log(btns);
+        // Array.from(btns).forEach((button)=>{
+        //     button.addEventListener('click',(e)=>{
+        //         console.log(e.target);
+        //         string=string+e.target.innerHTML;
+        //         disp.value=string;
+        //     })
+        // })
+        btns.forEach(element => {
+            element.addEventListener('click', function (e) {
+                console.log('Button clicked --> ', element.innerText);
+                // console.log(e);
+                try{
+                    const val = disp.value;
+                    if(e.target.innerHTML=="="){
+                        string=eval(string);
+                        disp.value=string;
+                    }else if(e.target.innerHTML=="AC"){
+                        string="";
+                        disp.value=string;
+                    }
+                    else if(e.target.innerHTML=="DEL"){
+                        string = string.substring(0,string.length-1);
+                        disp.value=string
+                    }
+                    else{
+                        string=string+e.target.innerHTML;
+                        disp.value=string
+                    }
+                }catch(err){
+                    disp.value="ERROR";
+                }
+            });
+        });
+        
+        // for (let i = 0; i < btns.length; i++) {
+        // btns[i].addEventListener('click', function () {
+        //     console.log('Button clicked:', btns[i].innerText);
+        // });
+
+    </script>
+</body>
+
+</html>
+
+
+
+

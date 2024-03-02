@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function sum(){
+            console.log(a*b);
+        }
+        function claculator(a,b,sumcallback){
+            console.log("the sum of a and b:",a+b);
+            sumcallback()
+        }
+        let a=5;
+        let b=7;
+        claculator(a,b,sum);
+
+        function getdata(Dataid,getNextData){
+            setTimeout(() => {
+                console.log("the dataId is:", Dataid);  
+                if(getNextData){
+                    getNextData();
+                }
+            },1000);
+        }
+
+        // getdata(1,()=>{
+        //     getdata(2,()=>{
+        //         getdata(3);
+        //     })
+        // });
+
+        // function getcheses(chesecallback){
+        //     const cheese="🧀";
+        //     setTimeout(() => {
+        //         console.log(cheese);
+        //         chesecallback(cheese);
+        //     }, 1000);
+        // }
+        // function getdough(cheese,doughcallback){
+        //     setTimeout(() => {
+        //         const dough= cheese+"🍩"
+        //         console.log(dough);
+        //         doughcallback(dough);
+        //     }, 1000);
+        // }
+        // function getbake(dough, pizzacallback){
+        //     setTimeout(() => {
+        //         const pizza = dough+"🍕";
+        //         console.log(pizza);
+        //     }, 1000);
+        // }
+        // getcheses((cheese)=>{
+        //     getdough(cheese,(dough)=>{
+        //         getbake(dough,(pizza)=>{
+
+        //         })
+        //     })
+        // })
+        let A=5;
+        let B=6;
+        console.log(A+B);
+        try{
+            console.log(A+C);
+        }catch(err){
+            console.log(err);
+        }
+        console.log(A+a);
+
+        function getcheses(){
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    const cheese="🧀";
+                    console.log(cheese);
+                    resolve(cheese);
+                }, 2000);
+            })
+        }
+        function getdough(cheese){
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    const dough= cheese+"🍩";
+                    console.log(dough);
+                    resolve(dough);
+                    reject(dough);
+                }, 2000);
+            })
+        }
+        function getbake(dough){
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    const pizza = dough+"🍕";
+                    console.log(pizza);
+                    resolve("success");
+                }, 2000);
+            })
+        }
+        async function getfood(){
+            try{
+                const cheese=await getcheses();
+                const dough = await getdough(cheese);
+                const pizza = await getbake(dough);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getfood();
+    </script>
+</body>
+</html>
